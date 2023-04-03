@@ -11,7 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/api', teacherRouter);
 app.use('/api/student', studentRouter);
-
+app.get('/', (req, res) => {
+  res.send('try with correct end point');
+});
 app.listen(process.env.PORT, () => {
   mongoose
     .connect(`${process.env.MONGO_URI}`)

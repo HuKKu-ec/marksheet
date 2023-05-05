@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const StudMenu = () => {
   const [error, setError] = useState('');
   const [student, setStudent] = useState([]);
   const { id } = useParams();
+  const teacher = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,16 @@ const StudMenu = () => {
         setStudent([json]);
       } else {
         setError(`Error: ${json.error}`);
+        toast(`Error: ${json.error}`, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     };
     fetchData();
@@ -75,6 +87,7 @@ const StudMenu = () => {
             </Card>
           );
         })}
+      <ToastContainer />
     </div>
   );
 };

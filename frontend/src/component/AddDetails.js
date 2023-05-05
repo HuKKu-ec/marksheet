@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const AddDetails = () => {
   const [name, setName] = useState('');
@@ -54,6 +55,16 @@ const AddDetails = () => {
       } else {
         console.log(json);
         setError(`Error: ${json.error}`);
+        toast(`Error: ${json.error}`, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     };
     fetchData();
@@ -247,6 +258,7 @@ const AddDetails = () => {
           Submit
         </Button>
       </Card>
+      <ToastContainer />
     </div>
   );
 };

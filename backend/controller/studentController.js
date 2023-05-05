@@ -62,10 +62,14 @@ const checkOneStudent = async (req, res) => {
   try {
     const { rollNo, dob } = req.body;
     const student = await studentSchema.findOne({ rollNo, dob });
-    if (student != null) res.status(200).json(student);
-    else res.status(400).json({ error: 'no such student exist' });
+    if (student != null) {
+      res.status(200).json(student);
+    } else {
+      res.status(400).json({ error: 'no such student exist' });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
+    console.log(error);
   }
 };
 const getStudent = async (req, res) => {

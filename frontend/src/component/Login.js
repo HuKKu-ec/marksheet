@@ -21,6 +21,7 @@ const Login = () => {
       });
       const json = await response.json();
       if (response.ok) {
+        localStorage.setItem('token', json.token);
         navigate('/TeacherMenu');
         setError('');
       } else {

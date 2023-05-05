@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useNavigation } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 const TeacherMenu = () => {
   const [student, setStudent] = useState([]);
 
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  const teacher = localStorage.getItem('token');
+  console.log(teacher);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,7 @@ const TeacherMenu = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${teacher}`,
         },
       });
       const json = await response.json();
@@ -21,11 +24,22 @@ const TeacherMenu = () => {
         setStudent(json);
       } else {
         setError(`Error: ${json.error}`);
+        toast(`Error: ${json.error}`, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     };
     fetchData();
   }, []);
   const handleLogOutButton = () => {
+    localStorage.removeItem('token');
     navigate('/Teacher');
   };
   const handleDataButton = () => {
@@ -96,6 +110,9 @@ const TeacherMenu = () => {
                       onClick={async () => {
                         const response = await fetch(`/student/${value._id}`, {
                           method: 'DELETE',
+                          headers: {
+                            Authorization: `Bearer ${teacher}`,
+                          },
                         });
                         const json = await response.json();
                         if (response.ok) {
@@ -113,6 +130,7 @@ const TeacherMenu = () => {
             );
           })}
       </table>
+      <ToastContainer />
     </div>
   );
 };

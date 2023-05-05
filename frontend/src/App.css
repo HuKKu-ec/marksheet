@@ -6,3 +6,32 @@
   margin: 3%;
   text-align: center;
 }
+.error-container {
+  margin: 2px auto;
+  padding: 100px;
+}
+.err-h1 {
+  margin: 50px auto;
+  color: rgb(202, 32, 32);
+}
+.err-p {
+  margin: 20px auto;
+}
+a {
+  all: unset;
+  font-weight: 500;
+}
+a:hover {
+  color: #000;
+}
+.err-button {
+  margin: 50px;
+  border-radius: 50px;
+  padding: 8px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #62ad9b;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 8px 0 #ccc;
+}

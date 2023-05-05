@@ -6,6 +6,7 @@ const {
   checkOneStudent,
   getStudent,
 } = require('../controller/studentController');
+
 const router = express.Router();
 router.delete('/:id', deleteStudent);
 router.post('/', setStudents);

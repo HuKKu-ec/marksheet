@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const StudCheck = () => {
   const navigate = useNavigate();
   const [rollNo, setRollNo] = useState('');
@@ -12,8 +13,6 @@ const StudCheck = () => {
   const handleSubmitButton = async (e) => {
     e.preventDefault();
     const data = { rollNo, dob };
-    console.log(data);
-
     const response = await fetch('/student/check', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -27,6 +26,16 @@ const StudCheck = () => {
       setError('');
     } else {
       setError(`Error: ${json.error}`);
+      toast(`Error: ${json.error}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
   return (
@@ -69,13 +78,7 @@ const StudCheck = () => {
       ) : (
         <div></div>
       )}
-      {error ? (
-        <Card border="danger p-3 mt-4 font-weight-bold" className="text-danger">
-          {error}
-        </Card>
-      ) : (
-        <div></div>
-      )}
+      <ToastContainer />
     </div>
   );
 };

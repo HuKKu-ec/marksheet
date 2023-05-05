@@ -7,14 +7,21 @@ import TeacherMenu from './component/TeacherMenu';
 import StudMenu from './component/StudMenu';
 import Error from './component/Error';
 function App() {
+  const teacher = localStorage.getItem('token');
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<StudCheck />} />
           <Route path="/studMenu/:id" element={<StudMenu />} />
-          <Route path="/addDetails" element={<AddDetails />} />
-          <Route path="/TeacherMenu" element={<TeacherMenu />} />
+          <Route
+            path="/addDetails"
+            element={teacher ? <AddDetails /> : <Error />}
+          />
+          <Route
+            path="/TeacherMenu"
+            element={teacher ? <TeacherMenu /> : <Error />}
+          />
           <Route path="/Teacher" element={<Login />} />
           <Route path="*" element={<Error />} />
         </Routes>

@@ -9,8 +9,9 @@ const studentRouter = require('./routes/studentRouter');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/api', teacherRouter);
+
 app.use('/api/student', studentRouter);
+app.use('/api', teacherRouter);
 app.get('/', (req, res) => {
   res.send('try with correct end point');
 });
